@@ -138,7 +138,7 @@ function speak(text) {
     utterance.voice = voice;
   }
   utterance.lang = "de-DE";
-  utterance.rate = Number(rateSlider.value);
+  utterance.rate = Math.max(0.4, Number(rateSlider.value));
   utterance.pitch = Number(pitchSlider.value);
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
