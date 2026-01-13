@@ -1,63 +1,63 @@
 ﻿const LETTERS = [
-  { text: "A", speak: "A" },
-  { text: "a", speak: "A" },
-  { text: "B", speak: "Be" },
-  { text: "b", speak: "Be" },
-  { text: "C", speak: "Ce" },
-  { text: "c", speak: "Ce" },
-  { text: "D", speak: "De" },
-  { text: "d", speak: "De" },
-  { text: "E", speak: "E" },
-  { text: "e", speak: "E" },
-  { text: "F", speak: "Ef" },
-  { text: "f", speak: "Ef" },
-  { text: "G", speak: "Ge" },
-  { text: "g", speak: "Ge" },
-  { text: "H", speak: "Ha" },
-  { text: "h", speak: "Ha" },
-  { text: "I", speak: "I" },
-  { text: "i", speak: "I" },
-  { text: "J", speak: "Jot" },
-  { text: "j", speak: "Jot" },
-  { text: "K", speak: "Ka" },
-  { text: "k", speak: "Ka" },
-  { text: "L", speak: "El" },
-  { text: "l", speak: "El" },
-  { text: "M", speak: "Em" },
-  { text: "m", speak: "Em" },
-  { text: "N", speak: "En" },
-  { text: "n", speak: "En" },
-  { text: "O", speak: "O" },
-  { text: "o", speak: "O" },
-  { text: "P", speak: "Pe" },
-  { text: "p", speak: "Pe" },
-  { text: "Q", speak: "Ku" },
-  { text: "q", speak: "Ku" },
-  { text: "R", speak: "Er" },
-  { text: "r", speak: "Er" },
-  { text: "S", speak: "Es" },
-  { text: "s", speak: "Es" },
-  { text: "T", speak: "Te" },
-  { text: "t", speak: "Te" },
-  { text: "U", speak: "U" },
-  { text: "u", speak: "U" },
-  { text: "V", speak: "Vau" },
-  { text: "v", speak: "Vau" },
-  { text: "W", speak: "We" },
-  { text: "w", speak: "We" },
-  { text: "X", speak: "Ix" },
-  { text: "x", speak: "Ix" },
-  { text: "Y", speak: "Ypsilon" },
-  { text: "y", speak: "Ypsilon" },
-  { text: "Z", speak: "Zet" },
-  { text: "z", speak: "Zet" },
-  { text: "\u00c4", speak: "Ae" },
-  { text: "\u00e4", speak: "Ae" },
-  { text: "\u00d6", speak: "Oe" },
-  { text: "\u00f6", speak: "Oe" },
-  { text: "\u00dc", speak: "Ue" },
-  { text: "\u00fc", speak: "Ue" },
-  { text: "\u00df", speak: "Eszett" }
+  { text: "A", speak: "a" },
+  { text: "a", speak: "a" },
+  { text: "B", speak: "be" },
+  { text: "b", speak: "be" },
+  { text: "C", speak: "tse" },
+  { text: "c", speak: "tse" },
+  { text: "D", speak: "de" },
+  { text: "d", speak: "de" },
+  { text: "E", speak: "e" },
+  { text: "e", speak: "e" },
+  { text: "F", speak: "ef" },
+  { text: "f", speak: "ef" },
+  { text: "G", speak: "ge" },
+  { text: "g", speak: "ge" },
+  { text: "H", speak: "ha" },
+  { text: "h", speak: "ha" },
+  { text: "I", speak: "i" },
+  { text: "i", speak: "i" },
+  { text: "J", speak: "jot" },
+  { text: "j", speak: "jot" },
+  { text: "K", speak: "ka" },
+  { text: "k", speak: "ka" },
+  { text: "L", speak: "el" },
+  { text: "l", speak: "el" },
+  { text: "M", speak: "em" },
+  { text: "m", speak: "em" },
+  { text: "N", speak: "en" },
+  { text: "n", speak: "en" },
+  { text: "O", speak: "o" },
+  { text: "o", speak: "o" },
+  { text: "P", speak: "pe" },
+  { text: "p", speak: "pe" },
+  { text: "Q", speak: "ku" },
+  { text: "q", speak: "ku" },
+  { text: "R", speak: "er" },
+  { text: "r", speak: "er" },
+  { text: "S", speak: "es" },
+  { text: "s", speak: "es" },
+  { text: "T", speak: "te" },
+  { text: "t", speak: "te" },
+  { text: "U", speak: "u" },
+  { text: "u", speak: "u" },
+  { text: "V", speak: "fau" },
+  { text: "v", speak: "fau" },
+  { text: "W", speak: "ve" },
+  { text: "w", speak: "ve" },
+  { text: "X", speak: "iks" },
+  { text: "x", speak: "iks" },
+  { text: "Y", speak: "ypsilon" },
+  { text: "y", speak: "ypsilon" },
+  { text: "Z", speak: "tset" },
+  { text: "z", speak: "tset" },
+  { text: "\u00c4", speak: "ae" },
+  { text: "\u00e4", speak: "ae" },
+  { text: "\u00d6", speak: "oe" },
+  { text: "\u00f6", speak: "oe" },
+  { text: "\u00dc", speak: "ue" },
+  { text: "\u00fc", speak: "ue" },
+  { text: "\u00df", speak: "eszett" }
 ];
 
 const grid = document.getElementById("letterGrid");
@@ -104,18 +104,27 @@ function handleSpeak(item, button) {
   }
 }
 
+function getSpeakForInput(text) {
+  const match = LETTERS.find((item) => item.text === text);
+  if (match && match.speak) {
+    return match.speak;
+  }
+  return text;
+}
+
 function handleCustomSpeak() {
   const text = customInput.value.trim();
   if (!text) {
     return;
   }
-  lastUtteranceText = text;
+  const speakText = getSpeakForInput(text);
+  lastUtteranceText = speakText;
   nowValue.textContent = text;
   if (activeButton) {
     activeButton.classList.remove("active");
     activeButton = null;
   }
-  speak(text);
+  speak(speakText);
 }
 
 function setVoiceOptions() {
